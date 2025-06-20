@@ -1,3 +1,12 @@
+To implement the chatbot UI shown in the image using Gradio, we need to create a Python script that defines the chatbot's functionality and its user interface. 
+The UI includes a text area for input, a button to send the message, and a display area for the conversation history. 
+Additionally, there are settings for the model, such as temperature, max tokens, repetition, and top P, which are adjustable via sliders.
+Below is a simplified example of how you might implement this using Gradio. This example focuses on replicating the UI and basic functionality. 
+Note that the actual chatbot logic (e.g., how the bot responds to user input) is not provided here as it depends on the specific model or logic you want to use.
+
+
+
+
 import gradio as gr
 
 def chatbot_settings(temp, max_tokens, repetition, top_p, streaming):
