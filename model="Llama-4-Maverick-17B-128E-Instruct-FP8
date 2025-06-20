@@ -1,0 +1,35 @@
+import gradio as gr
+
+def chatbot_settings(temp, max_tokens, repetition, top_p, streaming):
+    return f"Temperature: {temp}, Max Tokens: {max_tokens}, Repetition: {repetition}, Top P: {top_p}, Streaming: {streaming}"
+
+def main():
+    with gr.Blocks() as demo:
+        with gr.Row():
+            with gr.Column(scale=3):
+                chatbot = gr.Chatbot(label="Llama-4-Maverick-17B-128E-Instruct-FP8")
+                msg = gr.Textbox(label="Enter message...")
+            with gr.Column(scale=1):
+                with gr.Group("Model settings"):
+                    temp = gr.Slider(label="Temperature", minimum=0, maximum=1, value=0.6)
+                    max_tokens = gr.Slider(label="Max tokens", minimum=0, maximum=4096, value=2048)
+                    repetition = gr.Slider(label="Repetition", minimum=0, maximum=2, value=1.0)
+                    top_p = gr.Slider(label="Top P", minimum=0, maximum=1, value=0.9)
+                    streaming = gr.Checkbox(label="Streaming", value=True)
+                    advanced = gr.Button("Advanced")
+                    json_schema = gr.Button("JSON schema")
+                    tools = gr.Button("Tools")
+
+        def respond(message, history, temp, max_tokens, repetition, top_p, streaming):
+            # Here you would implement your chatbot's response logic
+            # For now, it just echoes the input
+            bot_message = f"Echo: {message}"
+            history.append((message, bot_message))
+            return "", history
+
+        msg.submit(respond, [msg, chatbot, temp, max_tokens, repetition, top_p, streaming], [msg, chatbot])
+
+    demo.launch()
+
+if __name__ == "__main__":
+    main()
